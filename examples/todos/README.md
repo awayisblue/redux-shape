@@ -1,5 +1,4 @@
 # Redux-shape Todos Example
-This example is writen from [redux Todos Example](http://redux.js.org/docs/basics/UsageWithReact.html)
 
 This project template was built with [Create React App](https://github.com/facebookincubator/create-react-app).
 
