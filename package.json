@@ -1,0 +1,36 @@
+{
+  "name": "redux-shape",
+  "version": "1.0.0",
+  "description": "A simple util for generating redux action & reducer by a state shape definition.",
+  "main": "lib/index.js",
+  "scripts": {
+    "compile": "babel src --out-dir lib",
+    "prepublish": "npm run compile"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/awayisblue/redux-shape.git"
+  },
+  "keywords": [
+    "redux",
+    "redux-shape",
+    "redux-leaf",
+    "state",
+    "state-shape",
+    "react",
+    "react-native"
+  ],
+  "author": "awayisblue <awayisblue@qq.com> (https://github.com/awayisblue)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/awayisblue/redux-shape/issues"
+  },
+  "homepage": "https://github.com/awayisblue/redux-shape#readme",
+  "dependencies": {
+    "redux": "^3.6.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.22.2",
+    "babel-preset-es2015": "^6.22.0"
+  }
+}
