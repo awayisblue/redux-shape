@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 let AddTodo = ({ dispatch }) => {
   let input
   let todoId = 1
-  console.log(this.context.store)
   return (
     <div>
       <form onSubmit={e => {

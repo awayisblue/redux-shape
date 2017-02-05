@@ -8,9 +8,7 @@ import shape from './shape'
 const reducer = reduxShape({shape})
 
 const store = createStore(reducer)
-const unsubscribe = store.subscribe(()=>{
-	console.log(store.getState())
-})
+
 render(
   <Provider store={store}>
     <App />
