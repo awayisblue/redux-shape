@@ -1,11 +1,9 @@
-# redux-shape
-A simple util for generating redux action & reducer by a state shape definition.
 
 # Introduction
 Feeling tedious to write redudx `action` and `reducer` in seperate files?
 Not sure what is the `state shape` created by your `reducers`?
 Don't know what `action type` deals with what `reducer`?
-`redux-shape` make it easy to create a `state shape` by a `shape` definition. With the `shape` defined, your action type and reducer will be determined. So `redux-shape` make it easier for you to manage redux state.
+`redux-shape` make it easy to create a `state shape` by a `shape` definition. With the `shape` defined, your action type and reducer will be determined. 
 
 # Installation
 ```
@@ -14,7 +12,8 @@ npm install --save redux-shape
 
 # Concepts
 `redux-shape` has two concepts.
-- `leaf`: `leaf` defines your leaf node of the `shape` and it's where you write your `reducers` and  `state` on which the `reducers` work. 
+### leaf
+`leaf` defines your leaf node of the `shape` and it's where you write your `reducers` and  `state` on which the `reducers` work. 
 ```js
 let leaf = {
 state:"",
@@ -29,8 +28,8 @@ reducers:{
 }
 }
 ```
-
-- `shape`: `shape` defines your state shape with `leaf`.
+### shape
+`shape` defines your state shape with `leaf`.
 ```js
 let shape = {
   text:()=>leaf,// a leaf should be returned inside a function.
@@ -73,7 +72,7 @@ let shape = {
   text:()=>leaf,// a leaf should be returned inside a function.
 }
 ```
-you can change text by `dispatch({type:'text.changeText',text:'some text'})`, and clear text by `dispatch({type:'text.clearText'})` where changeText and clearText reducers are defined in the `leaf`.
+you can change text by `store.dispatch({type:'text.changeText',text:'some text'})`, and clear text by `store.dispatch({type:'text.clearText'})`(changeText and clearText reducers are defined in `leaf`).
 Assume that you have defined a nested state shape as:
 ```
 let nestedShape = {
@@ -85,7 +84,7 @@ let nestedShape = {
 	}
 }
 ```
-You can change `state.a.text` by `dispatch({type:'a.text.changeText',text:'some text'})`, and change `state.b.text` by `dispatch({type:'b.text.changeText',text:'some text'})`.
+You can change `state.a.text` by `store.dispatch({type:'a.text.changeText',text:'some text'})`, and change `state.b.text` by `store.dispatch({type:'b.text.changeText',text:'some text'})`.
 
 Pretty simple, right?
 
