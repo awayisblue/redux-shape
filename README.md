@@ -12,6 +12,7 @@ npm install --save redux-shape
 
 # Concepts
 `redux-shape` has two concepts.
+
 ### leaf
 `leaf` defines your leaf node of the `shape` and it's where you write your `reducers` and  `state` on which the `reducers` work. 
 ```js
@@ -28,6 +29,7 @@ reducers:{
 }
 }
 ```
+
 ### shape
 `shape` defines your state shape with `leaf`.
 ```js
