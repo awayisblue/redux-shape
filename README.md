@@ -11,6 +11,7 @@ npm install --save redux-shape
 ```
 # Examples
 - [todos](https://github.com/awayisblue/redux-shape/tree/master/examples/todos)
+
 # Concepts
 `redux-shape` has two concepts.
 

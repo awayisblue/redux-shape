@@ -5,7 +5,7 @@ Redux-shape is distributed with a few examples in its [source code](https://gith
 
 ## Todos
 
-Run the [Todos](https://github.com/reactjs/redux/tree/master/examples/todos) example:
+Run the [Todos](https://github.com/awayisblue/redux-shape/tree/master/examples/todos) example:
 
 ```
 git clone https://github.com/awayisblue/redux-shape.git
