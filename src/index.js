@@ -1,8 +1,9 @@
-import {combineReducers} from 'redux'
+
 let defaultConfig = {
-    prefix:'',
     delimiter:'.',
 }
+let _combineReducers
+let _appliedConfig
 let convert = (leaf,prefix,delimiter)=>{
     let reducer = leaf.reducers
     let initState = leaf.state
@@ -23,7 +24,7 @@ let convert = (leaf,prefix,delimiter)=>{
 let  generateReducer = (shape,prefix,delimiter)=>{
     let keys = Object.keys(shape);
     let combine = {}
-    for(let key of keys){
+    keys.forEach((key)=>{
         let property = shape[key]
         let actualPrefix = prefix?(prefix+delimiter+key):key
         if(typeof property!=='function'){
@@ -31,11 +32,22 @@ let  generateReducer = (shape,prefix,delimiter)=>{
         }else{
             combine[key] = convert(property(),actualPrefix,delimiter)
         }
-    }
-    return combineReducers(combine)
+    })
+    return _combineReducers(combine)
 }
 
-export default (config={})=>{
-    let appliedConfig = Object.assign({},defaultConfig,config)
-    return generateReducer(appliedConfig.shape,appliedConfig.prefix,appliedConfig.delimiter)
+export default (combineReducers,config)=>{
+    if(typeof combineReducers !=='function'){
+        throw new Error('combineReducers should be a function imported from redux!')
+    }
+    if(typeof config !=='object' ){
+        throw new Error('config must be an Object!')
+    }
+    if(!config['shape']){
+        throw new Error('config must contain your shape definition!')
+    }
+    _appliedConfig = Object.assign({},defaultConfig,config)
+    _combineReducers = combineReducers
+    let {shape,delimiter} = _appliedConfig
+    return generateReducer(shape,'',delimiter)
 }
