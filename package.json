@@ -1,6 +1,6 @@
 {
   "name": "redux-shape",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A simple util for generating redux action & reducer by a state shape definition.",
   "main": "lib/index.js",
   "scripts": {
