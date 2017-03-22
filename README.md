@@ -10,7 +10,7 @@ Don't know what `action type` deals with what `reducer`?
 npm install --save redux-shape
 ```
 # Examples
-- [todos](https://github.com/awayisblue/redux-shape/tree/master/examples/todos)
+- [redux-shape-example](https://github.com/awayisblue/redux-shape-example)
 
 # Concepts
 `redux-shape` has two concepts.
