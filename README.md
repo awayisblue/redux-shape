@@ -1,4 +1,4 @@
-
+[查看中文版本](https://github.com/awayisblue/redux-shape/blob/master/README_zh.md)
 # Introduction
 Feeling tedious to write redudx `action` and `reducer` in seperate files?
 Not sure what is the `state shape` created by your `reducers`?
@@ -19,16 +19,16 @@ npm install --save redux-shape
 `leaf` defines your leaf node of the `shape` and it's where you write your `reducers` and  `state` on which the `reducers` work. 
 ```js
 let leaf = {
-state:"",
-reducers:{
-	changeText(state,action){
-	  let text = action.text
-	  return text;
-	},
-	clearText(state,action){
-	  return '';
-	}
-}
+    state:"",
+    reducers:{
+    	changeText(state,action){
+    	  let text = action.text
+    	  return text;
+    	},
+    	clearText(state,action){
+    	  return '';
+    	}
+    }
 }
 ```
 
@@ -55,10 +55,10 @@ let shape = {
 		  return '';
 		}
 	}
-	}
+  }
   let shape = {
 	  text:()=>leaf,// a leaf should be returned inside a function.
-	}
+  }
   let reducer = reduxShape(combineReducers,{shape:shape,delimiter:'.'})
   let store = createStore(reducer)
 ```
@@ -83,7 +83,7 @@ And now your state will be
 # Action type
 After you apply your `shape`, action types are determined. Action types follow this pattern:
 ```
-shapeProperty1.[...].reducerName
+<shapeProperty><delimiter><reducerName>
 ```
 So for the `shape`
 ```js
@@ -92,7 +92,9 @@ let shape = {
 }
 ```
 you can change text by `store.dispatch({type:'text.changeText',text:'some text'})`, and clear text by `store.dispatch({type:'text.clearText'})`(changeText and clearText reducers are defined in `leaf`).
-Assume that you have defined a nested state (note:nested state is not recommend in a redux app) shape as:
+
+### nested state support
+Assume that you have defined a nested state (note:nested state is not recommended in a redux app) shape as:
 ```
 let nestedShape = {
 	a:{
@@ -104,9 +106,3 @@ let nestedShape = {
 }
 ```
 You can change `state.a.text` by `store.dispatch({type:'a.text.changeText',text:'some text'})`, and change `state.b.text` by `store.dispatch({type:'b.text.changeText',text:'some text'})`. 
-
-Pretty simple, right?
-
-
-
-
