@@ -1,6 +1,6 @@
 # 简介
 使用redux写react项目时，我们通常把action及reducer分开来写，action type跟reducer的对应关系并不强，redux-shape的作用是让actionType跟reducer对应起来，reducer定义完成后，actionType也随之对应。
-实际上redux-shape的灵感来自于[dvajs](https://github.com/dvajs/dva)，redux-shape的reducer写法跟dvajs是差不多一样的，只是redux-shape是一个非常轻量的工具(只有40多行代码)，而dvajs是一个框架（更像是redux+redux-shape+redux-saga+react-router的集合）。使用dvajs的项目，可以比较简单地重新使用redux-shape进行重构。
+实际上redux-shape的灵感来自于[dvajs](https://github.com/dvajs/dva)，redux-shape的reducer写法跟dvajs是差不多一样的，只是redux-shape是一个非常轻量的工具(只有50多行代码)，而dvajs是一个框架（更像是redux+redux-shape+redux-saga+react-router的集合）。使用dvajs的项目，可以比较简单地重新使用redux-shape进行重构。
 
 # 安装
 ```
@@ -70,7 +70,7 @@ let shape = {
 	text:''
 }
 ```
-你可以很轻易地改变state:
+这个对象跟你的shape是相对应的，你可以很轻易地改变state:
 ```js
 store.dispatch({type:'text.changeText',text:'I am a text'})
 ```
