@@ -105,4 +105,41 @@ let nestedShape = {
 	}
 }
 ```
-You can change `state.a.text` by `store.dispatch({type:'a.text.changeText',text:'some text'})`, and change `state.b.text` by `store.dispatch({type:'b.text.changeText',text:'some text'})`. 
+You can change `state.a.text` by `store.dispatch({type:'a.text.changeText',text:'some text'})`, and change `state.b.text` by `store.dispatch({type:'b.text.changeText',text:'some text'})`.
+
+# Integrate with react-router-redux
+
+You can integrate redux-shape with [react-router-redux](https://github.com/reacttraining/react-router/tree/master/packages/react-router-redux) easily if you want to use react-router in you app.
+
+react-router-redux need to add custom reducers to store, we can use custom config like below:
+
+```js
+  import {createStore,combineReducers} from 'redux'
+  import {routerReducer} from 'react-router-redux'
+  import reduxShape from 'redux-shape'
+  let leaf = {
+	state:"",
+	reducers:{
+		changeText(state,action){
+		  let text = action.text
+		  return text;
+		},
+		clearText(state,action){
+		  return '';
+		}
+	}
+  }
+  let shape = {
+	  text:()=>leaf,// a leaf should be returned inside a function.
+  }
+  let reducer = reduxShape(combineReducers,{
+    shape:shape,
+    delimiter:'.',
+    custom:{
+      router:routerReducer
+    }
+  })
+  let store = createStore(reducer)
+```
+
+

@@ -125,6 +125,39 @@ let nestedShape = {
 
 你就可以通过`store.dispatch({type:'a.text.changeText',text:'some text'})`改变`state.a.text`，通过 `store.dispatch({type:'b.text.changeText',text:'some text'})`改变 `state.b.text`
 
+### 集成 react-router-redux
+redux-shape支持自定义的reducer,这样，就可以跟其它需要自定义reducers的库相结合。
+下面我们看一下集成[react-router-redux](https://github.com/reacttraining/react-router/tree/master/packages/react-router-redux)的方法。
+
+```js
+  import {createStore,combineReducers} from 'redux'
+  import {routerReducer} from 'react-router-redux'
+  import reduxShape from 'redux-shape'
+  let leaf = {
+	state:"",
+	reducers:{
+		changeText(state,action){
+		  let text = action.text
+		  return text;
+		},
+		clearText(state,action){
+		  return '';
+		}
+	}
+  }
+  let shape = {
+	  text:()=>leaf,// a leaf should be returned inside a function.
+  }
+  let reducer = reduxShape(combineReducers,{
+    shape:shape,
+    delimiter:'.',
+    custom:{
+      router:routerReducer
+    }
+  })
+  let store = createStore(reducer)
+```
+
 # 最后
 如果上面的你还看不太懂，比较推荐的还是直接看用redux-shape写的[例子](https://github.com/awayisblue/redux-shape-example)。
 
