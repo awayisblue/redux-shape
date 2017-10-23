@@ -8,12 +8,14 @@ let convert = (leaf,prefix,delimiter)=>{
     let reducer = leaf.reducers
     let initState = leaf.state
     let actionReducers = []
-    Object.keys(reducer).forEach((key)=>{
+    let keys = Object.getOwnPropertyNames(reducer)
+    for(let i=0;i<keys.length;i++){
+        let key = keys[i]
         actionReducers.push({
             actionType: prefix+delimiter+key,
             reducer:reducer[key]
         })
-    })
+    }
     return (state=initState,action)=>{
         let actionReducer = actionReducers.find((actionReducer)=>action.type==actionReducer.actionType)
         if(actionReducer)return actionReducer.reducer(state,action)
@@ -21,18 +23,37 @@ let convert = (leaf,prefix,delimiter)=>{
     }
 }
 
-let  generateReducer = (shape,prefix,delimiter)=>{
-    let keys = Object.keys(shape);
+let  generateReducer = (shape,prefix,delimiter,custom)=>{
+    let keys = Object.getOwnPropertyNames(shape)
     let combine = {}
-    keys.forEach((key)=>{
+    for(let i=0;i<keys.length;i++){
+        let key = keys[i]
         let property = shape[key]
         let actualPrefix = prefix?(prefix+delimiter+key):key
-        if(typeof property!=='function'){
+        let type = typeof property
+        if(type=='object'){
             combine[key] = generateReducer(property,actualPrefix,delimiter)
-        }else{
+        }else if(type=='function'){
             combine[key] = convert(property(),actualPrefix,delimiter)
+        }else{
+            throw new Error('unsupported property type, should be object or function')
         }
-    })
+    }
+    if(custom){
+        if(typeof custom!=='object'){
+            throw new Error('custom in config should be an object')
+        }
+        let keys = Object.getOwnPropertyNames(custom)
+        for(let i=0;i<keys.length;i++){
+            let key = keys[i]
+
+            let reducer = custom[key]
+            if(typeof reducer!=='function'){
+                throw new Error('custom reducer should be functions')
+            }
+            combine[key] = reducer
+        }
+    }
     return _combineReducers(combine)
 }
 
@@ -48,6 +69,6 @@ export default (combineReducers,config)=>{
     }
     _appliedConfig = Object.assign({},defaultConfig,config)
     _combineReducers = combineReducers
-    let {shape,delimiter} = _appliedConfig
-    return generateReducer(shape,'',delimiter)
+    let {shape,delimiter,custom} = _appliedConfig
+    return generateReducer(shape,'',delimiter,custom)
 }
